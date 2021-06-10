@@ -3,7 +3,9 @@ const fetch = require('node-fetch');
 function checkOrigin(req, res) {
     let origin = req.get('origin');
 
-    if(origin !== 'https://suspicious-einstein-fc973e.netlify.app') {
+    let allowed = ['https://gpresults.info', 'https://www.gpresults.info']
+
+    if(!allowed.includes(origin)) {
         res.status(403).send({
             message: 'Access denied'
         });
