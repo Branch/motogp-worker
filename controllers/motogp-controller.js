@@ -1,16 +1,17 @@
 const fetch = require('node-fetch');
 
-function test(req, res) {
+function checkOrigin(req, res) {
     let origin = req.get('origin');
-    let host = req.get('host');
-    if(1 !== 2) {
-        res.status(400).send({
-            message: 'This is an error!' + origin + host
+
+    if(origin !== 'https://suspicious-einstein-fc973e.netlify.app') {
+        res.status(403).send({
+            message: 'Access denied'
         });
     }
 }
 
 exports.getStandings = async (req, res) => {
+    checkOrigin(req, res);
     let year = req.query.year;
     let race = req.query.race;
     let category = req.query.category;
@@ -25,7 +26,7 @@ exports.getStandings = async (req, res) => {
 }
 
 exports.getLatestRace = async (req, res) => {
-    test(req, res);
+    checkOrigin(req, res);
     let latestPath = `https://www.motogp.com/en/Results+Statistics`;
 
     fetch(latestPath)
@@ -35,7 +36,7 @@ exports.getLatestRace = async (req, res) => {
 }
 
 exports.getRaces = async (req, res) => {
-
+    checkOrigin(req, res);
     let year = req.query.year;
 
     let latestPath = `https://www.motogp.com/en/ajax/results/selector/${year}`;
@@ -47,7 +48,7 @@ exports.getRaces = async (req, res) => {
 }
 
 exports.getCategories = async (req, res) => {
-
+    checkOrigin(req, res);
     let year = req.query.year;
     let race = req.query.race;
 
@@ -60,7 +61,7 @@ exports.getCategories = async (req, res) => {
 }
 
 exports.getSessions = async (req, res) => {
-
+    checkOrigin(req, res);
     let year = req.query.year;
     let race = req.query.race;
     let category = req.query.category;
@@ -74,7 +75,7 @@ exports.getSessions = async (req, res) => {
 }
 
 exports.getSession = async (req, res) => {
-
+    checkOrigin(req, res);
     let year = req.query.year;
     let race = req.query.race;
     let category = req.query.category;
