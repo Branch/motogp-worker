@@ -8,8 +8,7 @@ const compression = require('compression')
 const helmet = require('helmet')
 const cors = require('cors')
 
-// Import routes
-const homeRouter = require('./routes/home-route')
+// Import route
 const motogpRouter = require('./routes/motogp-route')
 
 // Setup default port
@@ -31,8 +30,7 @@ app.use('/motogp', motogpRouter)
 
 app.use((err, req, res, next) => {
     let origin = req.get('origin');
-
-    console.log(origin);
+    res.status(500).send(origin);
 
     console.error(err.stack)
     res.status(500).send('Something broke!')
