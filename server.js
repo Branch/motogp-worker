@@ -30,6 +30,7 @@ app.use('/motogp', motogpRouter)
 
 app.use((err, req, res, next) => {
     let origin = req.get('origin');
+    console.error(err.stack)
     res.status(500).send(origin);
 
     console.error(err.stack)
