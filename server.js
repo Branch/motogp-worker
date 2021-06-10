@@ -27,42 +27,17 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(bodyParser.json())
 
-// Implement route for '/api' endpoint
-app.use('/api', homeRouter)
 app.use('/motogp', motogpRouter)
 
-// Implement route for '/users' endpoint
-// ! Note:
-// '/users' will prefix all post routes
-// with '/users' => '/all' will become '/users/all'
-
-/*
-app.use('/users', usersRouter)*/
-// Implement route for errors
 app.use((err, req, res, next) => {
+    let origin = req.get('origin');
+
+    console.log(origin);
+
     console.error(err.stack)
     res.status(500).send('Something broke!')
 })
 
-
-//app.use('/motogp', motogpRouter)
-
-
-/*
-
-app.get(`/results`, (req,res) => {
-    let html = window.document.createElement('html');
-
-    fetch('https://www.motogp.com/en/ajax/results/parse/2020/STY/MotoGP/FP2')
-        .then(res => res.text())
-        .then(data => {
-            html.innerHTML = data;
-
-            let tds = html.getElementsByTagName('td')
-
-        });
-    return {1:'hejsan'};
-});*/
 
 
 // Start express app
