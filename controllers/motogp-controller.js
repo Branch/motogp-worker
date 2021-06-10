@@ -1,7 +1,16 @@
 const fetch = require('node-fetch');
 
-exports.getStandings = async (req, res) => {
+function test(req, res) {
+    let origin = req.get('origin');
+    let host = req.get('host');
+    if(1 !== 2) {
+        res.status(400).send({
+            message: 'This is an error!' + origin + host
+        });
+    }
+}
 
+exports.getStandings = async (req, res) => {
     let year = req.query.year;
     let race = req.query.race;
     let category = req.query.category;
@@ -16,7 +25,7 @@ exports.getStandings = async (req, res) => {
 }
 
 exports.getLatestRace = async (req, res) => {
-
+    test(req, res);
     let latestPath = `https://www.motogp.com/en/Results+Statistics`;
 
     fetch(latestPath)
